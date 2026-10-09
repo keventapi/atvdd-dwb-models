@@ -15,7 +15,7 @@ class Autor(models.Model):
         return f"{self.name}, {self.nationality}"
 
 class Category(models.Model):
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=40, unique=True)
 
     def __str__(self):
         return f"{self.name}"

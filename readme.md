@@ -1,0 +1,1 @@
+on_delete deve ser cascade, pois ao autor parar o relacionamento com o sistema o sistema perde também os direitos autorais deste autor.
