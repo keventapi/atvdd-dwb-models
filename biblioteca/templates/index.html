@@ -12,7 +12,7 @@
         {% for livro in livros %}
             <li>
                 <strong>{{ livro.titulo }}</strong> - 
-                {{ livro.autor }} ({{ livro.ano_publicado }})
+                <a href="{% url 'detalhes' id=livro.autor.id %}"> {{livro.autor}} </a> ({{ livro.ano_publicado }})
                 {% if livro.disponivel %}
                     <span>[Disponível]</span>
                 {% else %}

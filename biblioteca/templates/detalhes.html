@@ -1,0 +1,6 @@
+{{autor.name}}
+{%for livro in livros %}
+<div>{{livro}}</div>
+{%empty%}
+<p>sem livros registrados</p>
+{% endfor %}
