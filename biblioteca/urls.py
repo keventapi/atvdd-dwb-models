@@ -19,5 +19,5 @@ from django.urls import path
 
 urlpatterns = [
     path('', home, name="index"),
-    path('/autor/<int:id>', autor, name="detalhes")
+    path('autor/<int:id>', autor, name="detalhes")
 ]

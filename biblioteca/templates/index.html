@@ -11,13 +11,21 @@
     <ul>
         {% for livro in livros %}
             <li>
-                <strong>{{ livro.titulo }}</strong> - 
-                <a href="{% url 'detalhes' id=livro.autor.id %}"> {{livro.autor}} </a> ({{ livro.ano_publicado }})
-                {% if livro.disponivel %}
-                    <span>[Disponível]</span>
-                {% else %}
-                    <span>[Indisponível]</span>
-                {% endif %}
+            <strong>{{ livro.titulo }}</strong> - 
+            
+            {% for autor in livro.autores_temp.all %}
+                <a href="{% url 'detalhes' id=autor.id %}">{{ autor }}</a>{% if not forloop.last %}, {% endif %}
+            {% empty %}
+                <span>sem autor</span>
+            {% endfor %}
+            
+            ({{ livro.ano_publicado }})
+            
+            {% if livro.disponivel %}
+                <span>[Disponível]</span>
+            {% else %}
+                <span>[Indisponível]</span>
+            {% endif %}
             </li>
         {% empty %}
             <li>Nenhum livro cadastrado.</li>
