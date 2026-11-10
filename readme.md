@@ -5,3 +5,7 @@ on_delete deve ser cascade, pois ao autor parar o relacionamento com o sistema o
 
 2. Com ManyToMany, o que acontece com um livro quando o seu único autor é apagado? Como garantir que todo livro tenha pelo menos um autor?
 tem algumas formas, a primeira é implementação manual do CASCADE, buscando os livros que tem apenas ele como autor e exlcuindo junto ou bloqueando a exclusão desse autor até a exclusão ou edição de todos livros que ele participe, assim como no metodo save ter uma checagem de pelo menos um autor setado
+
+
+o django avisa que não tem a proteção e por isso ele não terminara a requisição sendo barrado nos middlewares, o from obrigatoriamente no django necessita do csfr junto para validar a requisição
+
