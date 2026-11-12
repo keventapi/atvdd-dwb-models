@@ -1,0 +1,18 @@
+{% if not edited%}
+<h1>Cadastrar novo livro</h1>
+{%else%}
+<h1>Editar livro</h1>
+{%endif%}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{form}}
+
+        
+        {% if not edited%}
+        <button type="submit">Cadastrar livro</button>
+        {%else%}
+        <button type="submit">Editar livro</button>
+        {%endif%}
+    </form>

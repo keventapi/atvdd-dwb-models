@@ -8,6 +8,7 @@
 <body>
     <h1>Meus Livros</h1>
     <h2> <a href="{% url "criar_autor" %}"> Novo autor </a></h2>
+    <h2> <a href="{% url "criar_livro" %}"> Novo livro </a></h2>
     <ul>
         {% for livro in livros %}
             <li>
@@ -26,6 +27,8 @@
             {% else %}
                 <span>[Indisponível]</span>
             {% endif %}
+
+             <a href="{% url 'editar_livro' id=livro.id %}">editar</a>
             </li>
         {% empty %}
             <li>Nenhum livro cadastrado.</li>

@@ -27,11 +27,5 @@ class Livro(models.Model):
     ano_publicado = models.IntegerField()
     disponivel = models.BooleanField(default=True)
 
-    def save(self,*args,**kwargs):
-        if self.autores_temp.count() < 1:
-            raise ValueError("é necessario ter pelo menos um autor registrado")
-
-        super().save(*args,**kwargs)
-
     def __str__(self):
         return f"titulo: {self.titulo} \n autor: {self.autores_temp.all()}. \n ano de publicação: {self.ano_publicado} \n dispnivel: {self.disponivel} \n categorias: {self.category}"
