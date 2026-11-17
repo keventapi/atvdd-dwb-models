@@ -1,51 +1,89 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy, reverse
+
 from .models import Livro, Autor
 from .forms import AutorForm, LivroForm
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+    TemplateView,
+)
 
-# Create your views here.
-def home(request):
-    livros = Livro.objects.all()
-    return render(request, "index.html", {"livros": livros})
 
-def autor(request, id):
-    escritor = get_object_or_404(Autor, id=id)
 
-    return render(request, "detalhes.html", {"autor": escritor, "livros": escritor.books.all()})
+class HomeListView(ListView):
+    model = Livro
+    template_name = "index.html"
+    context_object_name = "livros"
+    ordering = ["titulo"]
 
-def criar_autor(request):
-    if request.method == 'POST':
-        form = AutorForm(request.POST)
 
-        if form.is_valid():
-            autor = form.save()
-            return redirect('detalhes', id=autor.pk)
+class LivroDetailView(DetailView):
+    model = Livro
+    template_name = "livro_detalhes.html"
+    context_object_name = "livro"
 
-    else:
-        form = AutorForm()
+class AutorDetailView(DetailView):
+    model = Autor
+    template_name = "detalhes.html"
+    context_object_name = "autor"
+    pk_url_kwarg = "id"
 
-    return render(request, 'criar_autor.html', {'form': form})
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["livros"] = self.object.books.all()
+        return context
 
-def criar_livro(request):
-    if request.method == 'POST':
-            form = LivroForm(request.POST)
-    
-            if form.is_valid():
-                autor = form.save()
-                return redirect("index")
-    else:
-        form = LivroForm()
 
-    return render(request, "livro.html", {"form": form, "edited": False})
+class AutorCreateView(CreateView):
+    model = Autor
+    form_class = AutorForm
+    template_name = "criar_autor.html"
 
-def editar_livro(request, id):
-    livro = get_object_or_404(Livro, pk=id)
-    if request.method == 'POST':
-            form = LivroForm(request.POST, instance=livro)
-    
-            if form.is_valid():
-                livro = form.save()
-                print(livro)
-                return redirect("detalhes", id=livro.autores_temp.all()[0].id)
-    else:
-        form = LivroForm(instance=livro)
-    return render(request, "livro.html", {"form": form, "edited": True})
+    def get_success_url(self):
+        return reverse("detalhes", kwargs={"id": self.object.pk})
+
+
+class LivroCreateView(CreateView):
+    model = Livro
+    form_class = LivroForm  # Troque para LivroModelForm se você renomeou a classe em forms.py
+    template_name = "livro.html"
+    success_url = reverse_lazy("index")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["edited"] = False
+        return context
+
+
+class LivroUpdateView(UpdateView):
+    model = Livro
+    form_class = LivroForm
+    template_name = "livro.html"
+    pk_url_kwarg = "id"
+    success_url = reverse_lazy("index")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["edited"] = True
+        return context
+
+class LivroDeleteView(DeleteView):
+    model = Livro
+    template_name = "livro_confirm_delete.html"
+    pk_url_kwarg = "id"
+    success_url = reverse_lazy("index")
+
+class SobreTemplateView(TemplateView):
+    template_name = "sobre.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["total_livros"] = Livro.objects.count()
+        context["livros_disponiveis"] = Livro.objects.filter(disponivel=True).count()
+        return context
+
+

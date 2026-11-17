@@ -1,37 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Mini Biblioteca - Início</title>
 </head>
 <body>
-    <h1>Meus Livros</h1>
-    <h2> <a href="{% url "criar_autor" %}"> Novo autor </a></h2>
-    <h2> <a href="{% url "criar_livro" %}"> Novo livro </a></h2>
+    <h1>Lista de Livros</h1>
+    
+    <nav>
+        <a href="{% url 'criar_livro' %}">Adicionar Livro</a> | 
+        <a href="{% url 'criar_autor' %}">Adicionar Autor</a> | 
+        <a href="{% url 'sobre' %}">Sobre</a>
+    </nav>
+
+    <hr>
+
     <ul>
         {% for livro in livros %}
             <li>
-            <strong>{{ livro.titulo }}</strong> - 
-            
-            {% for autor in livro.autores_temp.all %}
-                <a href="{% url 'detalhes' id=autor.id %}">{{ autor }}</a>{% if not forloop.last %}, {% endif %}
-            {% empty %}
-                <span>sem autor</span>
-            {% endfor %}
-            
-            ({{ livro.ano_publicado }})
-            
-            {% if livro.disponivel %}
-                <span>[Disponível]</span>
-            {% else %}
-                <span>[Indisponível]</span>
-            {% endif %}
-
-             <a href="{% url 'editar_livro' id=livro.id %}">editar</a>
+                <a href="{% url 'livro_detalhes' livro.pk %}">{{ livro.titulo }}</a>
             </li>
         {% empty %}
-            <li>Nenhum livro cadastrado.</li>
+            <li>Nenhum livro cadastrado no momento.</li>
         {% endfor %}
     </ul>
 </body>

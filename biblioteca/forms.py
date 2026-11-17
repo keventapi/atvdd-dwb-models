@@ -23,7 +23,7 @@ class LivroForm(forms.ModelForm):
     class Meta:
         model = Livro
 
-        fields = ['titulo', 'autores_temp', 'category', 'ano_publicado', 'disponivel']
+        fields = "__all__"
 
     def clean(self):
         super().clean()

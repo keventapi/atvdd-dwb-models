@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ livro.titulo }}</title>
+</head>
+<body>
+    <h1>{{ livro.titulo }}</h1>
+    
+    {% if livro.capa %}
+        <div>
+            <img src="{{ livro.capa.url }}" alt="Capa de {{ livro.titulo }}" width="200">
+        </div>
+    {% endif %}
+    
+    <p><strong>Ano de Publicação:</strong> {{ livro.ano }}</p>
+
+    <hr>
+    
+    <a href="{% url 'editar_livro' livro.pk %}">Editar Livro</a> | 
+    <a href="{% url 'excluir_livro' livro.pk %}">Excluir Livro</a> | 
+    <a href="{% url 'index' %}">Voltar para a Home</a>
+</body>
+</html>
