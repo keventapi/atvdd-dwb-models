@@ -14,13 +14,16 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from .views import home, autor, criar_autor, criar_livro, editar_livro
+from .views import HomeListView, AutorDetailView, AutorCreateView, LivroCreateView, LivroDeleteView, LivroDetailView, LivroUpdateView, SobreTemplateView
 from django.urls import path
 
 urlpatterns = [
-    path('', home, name="index"),
-    path('autor/<int:id>', autor, name="detalhes"),
-    path('autores/novo/', criar_autor, name='criar_autor'),
-    path('livro', criar_livro, name="criar_livro"),
-    path('livro/<int:id>', editar_livro, name="editar_livro"),
+    path("", HomeListView.as_view(), name="index"),
+    path("livro/<int:pk>/", LivroDetailView.as_view(), name="livro_detalhes"),
+    path("autor/<int:id>/", AutorDetailView.as_view(), name="detalhes"),
+    path("autor/novo/", AutorCreateView.as_view(), name="criar_autor"),
+    path("livro/novo/", LivroCreateView.as_view(), name="criar_livro"),
+    path("livro/<int:id>/editar/", LivroUpdateView.as_view(), name="editar_livro"),
+    path("livro/<int:id>/excluir/", LivroDeleteView.as_view(), name="excluir_livro"),
+    path("sobre/", SobreTemplateView.as_view(), name="sobre"),
 ]

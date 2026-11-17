@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Excluir Livro</title>
+</head>
+<body>
+    <h1>Excluir Livro</h1>
+    
+    <p>Tem certeza de que deseja excluir permanentemente o livro <strong>"{{ object.titulo }}"</strong>?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" style="color: red;">Sim, tenho certeza</button>
+    </form>
+
+    <br>
+    <a href="{% url 'index' %}">Cancelar</a>
+</body>
+</html>

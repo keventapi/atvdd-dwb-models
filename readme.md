@@ -26,3 +26,15 @@ O número de páginas deve ser no máximo 5000.
 validator pois ele é uma checagem que barra caso nn satisfeito
 Um livro "indisponível" precisa ter o ISBN preenchido.
 validator
+
+
+2.2. Perguntas
+a) O que acontece se esquecermos request.FILES na view? E se esquecermos o enctype no template? Reproduza os dois erros e descreva o que viram (o formulário dá algum aviso?).
+a imagem não é salva, e não tem avisos dependendo da modelagem do banco, se a imagem for um campo obrigatorio avisara que não foi preenchido pelo usuario, mas caso seja opconal então o formulario vai fazer apenas as outras validações
+b) Qual é a diferença entre STATICFILES_DIRS / {% static %} e MEDIA_ROOT / .url? Quando usar cada um na Mini biblioteca?
+static são do sistema, algo interno feito ja pelo desenvolvendor, o media é dados dinamicos enviados pelos usuarios
+c) Ao excluir um livro (ou trocar a capa), o arquivo antigo continua em media/capas/. Por que isso acontece e que problema pode causar a longo prazo?
+pois não tem uma rotina de remoção automatica executada no update, ou delete de uma capa, isso pode virar um problema pois pode inflar rapidamente o espaço do banco de dados
+d). Por que a extensão do arquivo não basta como proteção? Que outros cuidados o servidor deve ter com uploads?
+a extensão do arquivo é algo mais visual, o que realmente é validavel é o header que mostra para o computador como ele deve interpretar os bytes, seja por cor (imagens) ou instruções (executaveis)
+

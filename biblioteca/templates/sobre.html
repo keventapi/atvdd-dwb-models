@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sobre o Sistema</title>
+</head>
+<body>
+    <h1>Sobre a Mini Biblioteca</h1>
+    <p>Sistema acadêmico desenvolvido para estudo de Django e arquitetura web em camadas.</p>
+
+    <hr>
+
+    <h3>Estatísticas do Acervo:</h3>
+    <ul>
+        <li><strong>Total de livros cadastrados:</strong> {{ total_livros }}</li>
+        <li><strong>Livros disponíveis:</strong> {{ livros_disponiveis }}</li>
+    </ul>
+
+    <br>
+    <a href="{% url 'index' %}">Voltar para a Home</a>
+</body>
+</html>

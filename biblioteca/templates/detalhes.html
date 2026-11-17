@@ -1,18 +1,24 @@
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Autor: {{ autor.nome }}</title>
 </head>
 <body>
-    {{autor.name}}
-    {%for livro in livros %}
-        <div>{{livro}}</div>
-    {%empty%}
-        <p>sem livros registrados</p>
-    {% endfor %}
+    <h1>Autor: {{ autor.nome }}</h1>
+    
+    <h2>Livros associados:</h2>
+    <ul>
+        {% for livro in livros %}
+            <li>
+                <a href="{% url 'livro_detalhes' livro.pk %}">{{ livro.titulo }}</a>
+            </li>
+        {% empty %}
+            <li>Este autor não possui livros cadastrados.</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+    <a href="{% url 'index' %}">Voltar para a Home</a>
 </body>
 </html>
