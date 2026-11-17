@@ -38,3 +38,14 @@ pois não tem uma rotina de remoção automatica executada no update, ou delete 
 d). Por que a extensão do arquivo não basta como proteção? Que outros cuidados o servidor deve ter com uploads?
 a extensão do arquivo é algo mais visual, o que realmente é validavel é o header que mostra para o computador como ele deve interpretar os bytes, seja por cor (imagens) ou instruções (executaveis)
 
+3.1. Perguntas
+
+a) Na CreateView, quem faz o if request.method == "POST" que escrevíamos à mão? O que acontece quando o formulário é inválido?
+o metodo post da classe, quando é invalido ele é tratado pelo form_isclean()
+
+b) Por que o upload da capa continuou funcionando na CreateView sem passarmos request.FILESmanualmente?
+pois o metodo post ja envia tanto o request.FILE quanto o request.POST
+c) Por que o DeleteView mostra uma página de confirmação e só exclui no POST? Que problema aconteceria se a exclusão ocorresse em um GET?
+se fosse no get um redirecionamento errado ou alguem enviando alguma forma de GET ou ate mesmo cliques errados poderiam gerar a exclusão
+d) Cite uma vantagem e uma desvantagem das CBVs em relação às FBVs. Em que situação você ainda escolheria uma função?
+a vantagem é ter varias coisas ja prontas, e que voce so vai mudar aquilo que precisa mudar, mas em situações como precisar somente renderizar uma view ou uma logica de negocio muito especifica que não seria tão verbosa eu ainda iria preferir as FBV
