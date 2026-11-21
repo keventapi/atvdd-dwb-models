@@ -49,3 +49,20 @@ c) Por que o DeleteView mostra uma página de confirmação e só exclui no POST
 se fosse no get um redirecionamento errado ou alguem enviando alguma forma de GET ou ate mesmo cliques errados poderiam gerar a exclusão
 d) Cite uma vantagem e uma desvantagem das CBVs em relação às FBVs. Em que situação você ainda escolheria uma função?
 a vantagem é ter varias coisas ja prontas, e que voce so vai mudar aquilo que precisa mudar, mas em situações como precisar somente renderizar uma view ou uma logica de negocio muito especifica que não seria tão verbosa eu ainda iria preferir as FBV
+
+
+SQLite vs. PostgreSQL: SQLite é embutido em arquivo local (sem servidor, baixa concorrência, ideal para testes/MVPs simples); PostgreSQL é servidor cliente-servidor robusto (alta concorrência, ACID, tipos avançados, ideal para produção/multi-usuário).
+
+Driver e instalação: Django usa psycopg (v3) ou psycopg2-binary; instale com pip install psycopg[binary] ou pip install psycopg2-binary.
+
+Chaves do DATABASES: ENGINE define o backend (django.db.backends.postgresql), NAME é o nome do banco, USER é o usuário, PASSWORD é a senha, HOST é o endereço/serviço e PORT é a porta (padrão 5432).
+
+Banco e usuário próprio: No psql como superusuário, rode CREATE USER app_user WITH PASSWORD 'senha'; e CREATE DATABASE app_db OWNER app_user;.
+
+Variáveis de ambiente: Valores injetados no ambiente do SO/container fora do código-fonte para não vazar segredos no Git, facilitar deploy e variar config por ambiente.
+
+Ler .env no settings.py: Chame load_dotenv() (com python-dotenv) ou config() (com python-decouple) no topo do settings.py e leia via os.environ["CHAVE"] / config("CHAVE").
+
+.gitignore e .env.example: .gitignore impede o commit de .env (segredos) e db.sqlite3; .env.example versiona as chaves esperadas com valores fictícios para orientar outros devs.
+
+Outras configs sensíveis/ambientais no settings.py: SECRET_KEY, DEBUG (False em prod), ALLOWED_HOSTS, credenciais de e-mail/cache/APIs externas e URLs de banco/storage.
